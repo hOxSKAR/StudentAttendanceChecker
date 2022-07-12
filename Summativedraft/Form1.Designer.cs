@@ -1,4 +1,7 @@
-﻿namespace Summativedraft
+﻿using System.Data;
+using System.Data.SqlClient;
+
+namespace Summativedraft
 {
     partial class Form1
     {
@@ -21,7 +24,6 @@
         }
 
         #region Windows Form Designer generated code
-
         /// <summary>
         ///  Required method for Designer support - do not modify
         ///  the contents of this method with the code editor.
@@ -32,7 +34,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.listView = new System.Windows.Forms.ListView();
+            this.attendance_listView = new System.Windows.Forms.ListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
@@ -48,17 +50,18 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.fname = new System.Windows.Forms.TextBox();
-            this.lname = new System.Windows.Forms.TextBox();
-            this.sy = new System.Windows.Forms.TextBox();
-            this.course = new System.Windows.Forms.TextBox();
+            this.fname_text = new System.Windows.Forms.TextBox();
+            this.lname_text = new System.Windows.Forms.TextBox();
+            this.sy_text = new System.Windows.Forms.TextBox();
+            this.course_text = new System.Windows.Forms.TextBox();
             this.confirm1 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.date = new System.Windows.Forms.TextBox();
             this.timeintxt = new System.Windows.Forms.TextBox();
             this.timeouttxt = new System.Windows.Forms.TextBox();
-            this.studentid = new System.Windows.Forms.ComboBox();
+            this.studentid_comb = new System.Windows.Forms.ComboBox();
             this.subjectname = new System.Windows.Forms.ComboBox();
+            this.status_lbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -70,7 +73,6 @@
             this.label1.Size = new System.Drawing.Size(355, 36);
             this.label1.TabIndex = 0;
             this.label1.Text = "Student Attendance Recorder";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -80,7 +82,6 @@
             this.label2.Size = new System.Drawing.Size(64, 15);
             this.label2.TabIndex = 1;
             this.label2.Text = "FirstName:";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
@@ -99,24 +100,24 @@
             this.label5.Size = new System.Drawing.Size(0, 15);
             this.label5.TabIndex = 4;
             // 
-            // listView
+            // attendance_listView
             // 
-            this.listView.Activation = System.Windows.Forms.ItemActivation.OneClick;
-            this.listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.attendance_listView.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.attendance_listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4,
             this.columnHeader5,
             this.columnHeader6});
-            this.listView.HoverSelection = true;
-            this.listView.Location = new System.Drawing.Point(302, 87);
-            this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(656, 420);
-            this.listView.TabIndex = 6;
-            this.listView.UseCompatibleStateImageBehavior = false;
-            this.listView.View = System.Windows.Forms.View.Details;
-            this.listView.SelectedIndexChanged += new System.EventHandler(this.listView_SelectedIndexChanged);
+            this.attendance_listView.HoverSelection = true;
+            this.attendance_listView.Location = new System.Drawing.Point(302, 87);
+            this.attendance_listView.Name = "attendance_listView";
+            this.attendance_listView.Size = new System.Drawing.Size(656, 420);
+            this.attendance_listView.TabIndex = 6;
+            this.attendance_listView.UseCompatibleStateImageBehavior = false;
+            this.attendance_listView.View = System.Windows.Forms.View.Details;
+            this.attendance_listView.SelectedIndexChanged += new System.EventHandler(this.listView_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
@@ -201,7 +202,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(11, 287);
+            this.label10.Location = new System.Drawing.Point(14, 284);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(84, 15);
             this.label10.TabIndex = 13;
@@ -224,7 +225,6 @@
             this.label12.Size = new System.Drawing.Size(44, 15);
             this.label12.TabIndex = 15;
             this.label12.Text = "Course";
-            this.label12.Click += new System.EventHandler(this.label12_Click);
             // 
             // label13
             // 
@@ -235,34 +235,38 @@
             this.label13.TabIndex = 16;
             this.label13.Text = "LastName: ";
             // 
-            // fname
+            // fname_text
             // 
-            this.fname.Location = new System.Drawing.Point(124, 127);
-            this.fname.Name = "fname";
-            this.fname.Size = new System.Drawing.Size(162, 23);
-            this.fname.TabIndex = 21;
+            this.fname_text.Enabled = false;
+            this.fname_text.Location = new System.Drawing.Point(124, 127);
+            this.fname_text.Name = "fname_text";
+            this.fname_text.Size = new System.Drawing.Size(162, 23);
+            this.fname_text.TabIndex = 21;
             // 
-            // lname
+            // lname_text
             // 
-            this.lname.Location = new System.Drawing.Point(124, 156);
-            this.lname.Name = "lname";
-            this.lname.Size = new System.Drawing.Size(162, 23);
-            this.lname.TabIndex = 22;
+            this.lname_text.Enabled = false;
+            this.lname_text.Location = new System.Drawing.Point(124, 156);
+            this.lname_text.Name = "lname_text";
+            this.lname_text.Size = new System.Drawing.Size(162, 23);
+            this.lname_text.TabIndex = 22;
             // 
-            // sy
+            // sy_text
             // 
-            this.sy.AcceptsReturn = true;
-            this.sy.Location = new System.Drawing.Point(124, 185);
-            this.sy.Name = "sy";
-            this.sy.Size = new System.Drawing.Size(162, 23);
-            this.sy.TabIndex = 23;
+            this.sy_text.AcceptsReturn = true;
+            this.sy_text.Enabled = false;
+            this.sy_text.Location = new System.Drawing.Point(124, 185);
+            this.sy_text.Name = "sy_text";
+            this.sy_text.Size = new System.Drawing.Size(162, 23);
+            this.sy_text.TabIndex = 23;
             // 
-            // course
+            // course_text
             // 
-            this.course.Location = new System.Drawing.Point(124, 214);
-            this.course.Name = "course";
-            this.course.Size = new System.Drawing.Size(162, 23);
-            this.course.TabIndex = 24;
+            this.course_text.Enabled = false;
+            this.course_text.Location = new System.Drawing.Point(124, 214);
+            this.course_text.Name = "course_text";
+            this.course_text.Size = new System.Drawing.Size(162, 23);
+            this.course_text.TabIndex = 24;
             // 
             // confirm1
             // 
@@ -305,17 +309,18 @@
             this.timeouttxt.Size = new System.Drawing.Size(161, 23);
             this.timeouttxt.TabIndex = 34;
             // 
-            // studentid
+            // studentid_comb
             // 
-            this.studentid.FormattingEnabled = true;
-            this.studentid.Items.AddRange(new object[] {
-            "1234",
-            "5678"});
-            this.studentid.Location = new System.Drawing.Point(124, 98);
-            this.studentid.Name = "studentid";
-            this.studentid.Size = new System.Drawing.Size(162, 23);
-            this.studentid.TabIndex = 35;
-            this.studentid.SelectedIndexChanged += new System.EventHandler(this.studentid_SelectedIndexChanged);
+            this.studentid_comb.DisplayMember = "student_id";
+            this.studentid_comb.FormattingEnabled = true;
+            this.studentid_comb.Items.AddRange(new object[] {
+            "Create New"});
+            this.studentid_comb.Location = new System.Drawing.Point(124, 98);
+            this.studentid_comb.Name = "studentid_comb";
+            this.studentid_comb.Size = new System.Drawing.Size(162, 23);
+            this.studentid_comb.TabIndex = 35;
+            this.studentid_comb.ValueMember = "student_id";
+            this.studentid_comb.SelectedIndexChanged += new System.EventHandler(this.studentid_SelectedIndexChanged);
             // 
             // subjectname
             // 
@@ -329,32 +334,42 @@
             this.subjectname.Size = new System.Drawing.Size(162, 23);
             this.subjectname.TabIndex = 36;
             // 
+            // status_lbl
+            // 
+            this.status_lbl.AutoSize = true;
+            this.status_lbl.ForeColor = System.Drawing.SystemColors.Control;
+            this.status_lbl.Location = new System.Drawing.Point(21, 322);
+            this.status_lbl.Name = "status_lbl";
+            this.status_lbl.Size = new System.Drawing.Size(0, 15);
+            this.status_lbl.TabIndex = 13;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(970, 537);
             this.Controls.Add(this.subjectname);
-            this.Controls.Add(this.studentid);
+            this.Controls.Add(this.studentid_comb);
             this.Controls.Add(this.timeouttxt);
             this.Controls.Add(this.timeintxt);
             this.Controls.Add(this.date);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.confirm1);
-            this.Controls.Add(this.course);
-            this.Controls.Add(this.sy);
-            this.Controls.Add(this.lname);
-            this.Controls.Add(this.fname);
+            this.Controls.Add(this.course_text);
+            this.Controls.Add(this.sy_text);
+            this.Controls.Add(this.lname_text);
+            this.Controls.Add(this.fname_text);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
+            this.Controls.Add(this.status_lbl);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.TimeOut);
             this.Controls.Add(this.TimeIn);
-            this.Controls.Add(this.listView);
+            this.Controls.Add(this.attendance_listView);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -367,12 +382,14 @@
         }
 
         #endregion
+        // SLQ THINGY
+
 
         private Label label1;
         private Label label2;
         private Label label3;
         private Label label5;
-        private ListView listView;
+        private ListView attendance_listView;
         private Button TimeIn;
         private Button TimeOut;
         private Label label4;
@@ -388,16 +405,17 @@
         private ColumnHeader columnHeader4;
         private ColumnHeader columnHeader5;
         private ColumnHeader columnHeader6;
-        private TextBox fname;
-        private TextBox lname;
-        private TextBox sy;
-        private TextBox course;
+        private TextBox fname_text;
+        private TextBox lname_text;
+        private TextBox sy_text;
+        private TextBox course_text;
         private Button confirm1;
         private Button button1;
         private TextBox date;
         private TextBox timeintxt;
         private TextBox timeouttxt;
-        private ComboBox studentid;
+        private ComboBox studentid_comb;
         private ComboBox subjectname;
+        private Label status_lbl;
     }
 }
