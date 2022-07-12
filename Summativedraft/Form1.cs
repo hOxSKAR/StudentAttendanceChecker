@@ -24,6 +24,8 @@ namespace Summativedraft
         }
         private void LoadStudents()
         {
+            studentid_comb.Items.Clear();
+            studentid_comb.Items.Add("Create New");
             string students_query = "SELECT student_id FROM Students";
             command = new SqlCommand(students_query, connection);
             connection.Open();
@@ -67,6 +69,7 @@ namespace Summativedraft
         }
         private void LoadSubjects()
         {
+            subjectname.Items.Clear();
             string subjects_query = "SELECT * FROM Subjects";
             command = new SqlCommand(subjects_query, connection);
             connection.Open();
@@ -138,6 +141,45 @@ namespace Summativedraft
       
             date.Text = DateTime.Now.ToShortDateString();
         }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            
+            int increment = studentid_comb.Items.Count;
+            if (string.IsNullOrEmpty(studentid_comb.Text) || string.IsNullOrEmpty(fname_text.Text) || string.IsNullOrEmpty(course_text.Text) || string.IsNullOrEmpty(subjectname.Text))
+                return;
+            string createNewTime = "INSERT INTO Students (student_id, first_name, last_name, course, school_year) VALUES (@student_id, @first_name, @last_name, @course, @school_year);";
+            command = new SqlCommand(createNewTime, connection);
+            
+            command.Parameters.AddWithValue("@student_id", increment);
+            command.Parameters.AddWithValue("@first_name", fname_text.Text);
+
+            command.Parameters.AddWithValue("@last_name", lname_text.Text);
+            command.Parameters.AddWithValue("@course", course_text.Text);
+            command.Parameters.AddWithValue("@school_year", sy_text.Text);
+            try
+            {
+                connection.Open();
+                command.ExecuteNonQuery();
+                status_lbl.ForeColor = Color.Green;
+                status_lbl.Text = "Successfully Added";
+
+            }
+            catch (SqlException ex)
+            {
+                status_lbl.ForeColor = Color.Red;
+                status_lbl.Text = ex.Message;
+            }
+            finally
+            {
+                add_student.Enabled = false;
+                fname_text.Enabled = false;
+                lname_text.Enabled = false;
+                course_text.Enabled = false;
+                sy_text.Enabled = false;
+                connection.Close();
+                LoadStudents();
+            }
+        }
 
         private void TimeIn_Click(object sender, EventArgs e)
         {
@@ -157,6 +199,8 @@ namespace Summativedraft
                 lname_text.Text = "";
                 sy_text.Text = "";
                 course_text.Text = "";
+
+                add_student.Enabled = true;
 
                 fname_text.Enabled = true;
                 lname_text.Enabled = true;

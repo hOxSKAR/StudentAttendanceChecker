@@ -1,5 +1,4 @@
-﻿using System.Data;
-using System.Data.SqlClient;
+﻿
 
 namespace Summativedraft
 {
@@ -62,6 +61,7 @@ namespace Summativedraft
             this.studentid_comb = new System.Windows.Forms.ComboBox();
             this.subjectname = new System.Windows.Forms.ComboBox();
             this.status_lbl = new System.Windows.Forms.Label();
+            this.add_student = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -193,7 +193,7 @@ namespace Summativedraft
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label8.Location = new System.Drawing.Point(8, 246);
+            this.label8.Location = new System.Drawing.Point(11, 263);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(82, 25);
             this.label8.TabIndex = 11;
@@ -202,7 +202,7 @@ namespace Summativedraft
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(14, 284);
+            this.label10.Location = new System.Drawing.Point(17, 301);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(84, 15);
             this.label10.TabIndex = 13;
@@ -329,7 +329,7 @@ namespace Summativedraft
             "csc",
             "css",
             "cssss"});
-            this.subjectname.Location = new System.Drawing.Point(124, 279);
+            this.subjectname.Location = new System.Drawing.Point(127, 296);
             this.subjectname.Name = "subjectname";
             this.subjectname.Size = new System.Drawing.Size(162, 23);
             this.subjectname.TabIndex = 36;
@@ -343,6 +343,17 @@ namespace Summativedraft
             this.status_lbl.Size = new System.Drawing.Size(0, 15);
             this.status_lbl.TabIndex = 13;
             // 
+            // add_student
+            // 
+            this.add_student.Enabled = false;
+            this.add_student.Location = new System.Drawing.Point(181, 243);
+            this.add_student.Name = "add_student";
+            this.add_student.Size = new System.Drawing.Size(104, 23);
+            this.add_student.TabIndex = 31;
+            this.add_student.Text = "Add";
+            this.add_student.UseVisualStyleBackColor = true;
+            this.add_student.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -353,6 +364,7 @@ namespace Summativedraft
             this.Controls.Add(this.timeouttxt);
             this.Controls.Add(this.timeintxt);
             this.Controls.Add(this.date);
+            this.Controls.Add(this.add_student);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.confirm1);
             this.Controls.Add(this.course_text);
@@ -417,5 +429,6 @@ namespace Summativedraft
         private ComboBox studentid_comb;
         private ComboBox subjectname;
         private Label status_lbl;
+        private Button add_student;
     }
 }
